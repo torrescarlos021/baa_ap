@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autolavado Pedregal · Membresía</title>
+<style>
+  :root{
+    --navy:#0f2350; --navy-2:#0a1836; --royal:#2a5fb0; --sky:#5b9bd5; --sky-2:#83b7e8;
+    --ink:#eaf1fb; --mute:#9fb2d0; --line:rgba(255,255,255,.1); --gold:#d9b779;
+    --serif:"Iowan Old Style",Palatino,"Book Antiqua",Georgia,serif;
+    --sans:"Segoe UI",Roboto,Arial,system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+  body{font-family:var(--sans);background:var(--navy);color:var(--ink);line-height:1.6;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 26px}
+  h1,h2,h3{font-family:var(--serif);font-weight:700;line-height:1.08;letter-spacing:-.01em}
+  .eyebrow{font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--sky);font-weight:700}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-weight:700;padding:15px 32px;border-radius:40px;font-size:.98rem;transition:.2s;cursor:pointer}
+  .btn-p{background:linear-gradient(120deg,var(--royal),var(--sky));color:#fff;box-shadow:0 14px 36px -12px rgba(91,155,213,.9)}.btn-p:hover{transform:translateY(-2px)}
+  .btn-g{border:1.5px solid var(--gold);color:var(--gold)}.btn-g:hover{background:var(--gold);color:var(--navy)}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(10,24,54,.8);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+  .logo{display:flex;align-items:center;gap:12px}.logo img{height:46px}
+  .logo b{font-family:var(--serif);letter-spacing:.13em;color:#fff}.logo span{display:block;font-size:.58rem;letter-spacing:.36em;color:var(--sky)}
+  nav.links{display:flex;gap:28px}nav.links a{font-size:.88rem;color:var(--mute)}nav.links a:hover{color:#fff}
+  .nav-cta{background:var(--gold);color:var(--navy);padding:10px 22px;border-radius:40px;font-size:.84rem;font-weight:700}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer}.burger span{width:24px;height:2px;background:#fff}
+
+  /* HERO membership */
+  .hero{position:relative;padding:70px 0 90px;overflow:hidden;background:radial-gradient(100% 80% at 80% 0%,#16336e,var(--navy) 55%,var(--navy-2))}
+  .hero::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(105deg,rgba(255,255,255,.02) 0 2px,transparent 2px 26px)}
+  .hero .wrap{position:relative;display:grid;grid-template-columns:1fr .82fr;gap:50px;align-items:center}
+  .hero-l h1{font-size:clamp(2.7rem,6vw,4.6rem);color:#fff;margin:16px 0}
+  .hero-l h1 em{font-style:normal;background:linear-gradient(120deg,var(--gold),#f0d9a8);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero-l p{font-size:1.16rem;color:var(--mute);max-width:480px;margin-bottom:30px}
+  .hero-l .row{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-note{margin-top:22px;font-size:.82rem;color:var(--sky-2);letter-spacing:.04em}
+
+  /* membership card big */
+  .plan{background:linear-gradient(150deg,#16336e,#0a1a3c);border:1px solid rgba(91,155,213,.35);border-radius:24px;padding:44px 40px;box-shadow:0 50px 90px -30px #000;position:relative;overflow:hidden}
+  .plan::before{content:"";position:absolute;right:-50px;top:-50px;width:230px;height:230px;background:url('assets/logo-pedregal-sm.png') center/contain no-repeat;opacity:.07}
+  .plan .ribbon{position:absolute;top:20px;right:-40px;background:var(--gold);color:var(--navy);font-size:.68rem;font-weight:800;letter-spacing:.12em;padding:7px 50px;transform:rotate(38deg)}
+  .plan .k{font-size:.7rem;letter-spacing:.28em;color:var(--sky)}
+  .plan .amt{font-family:var(--serif);font-size:4.6rem;color:#fff;line-height:1;margin:10px 0 4px}
+  .plan .amt small{font-size:1.1rem;color:var(--mute)}
+  .plan .sub{color:var(--sky-2);font-size:.92rem;margin-bottom:22px}
+  .plan ul{list-style:none;display:flex;flex-direction:column;gap:13px;margin-bottom:26px}
+  .plan li{display:flex;gap:11px;color:var(--ink);font-size:.96rem}.plan li::before{content:"✓";color:var(--gold);font-weight:800}
+  .plan .btn{width:100%;justify-content:center}
+
+  section{padding:96px 0}
+  .sec-head{text-align:center;max-width:600px;margin:0 auto 54px}
+  .sec-head h2{font-size:clamp(2rem,4vw,2.8rem);color:#fff;margin-top:12px}
+  .sec-head p{color:var(--mute);margin-top:12px}
+
+  .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .svc{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:14px;padding:26px;transition:.22s;display:flex;justify-content:space-between;align-items:center;gap:14px}
+  .svc:hover{background:rgba(91,155,213,.08);transform:translateX(4px)}
+  .svc h3{font-family:var(--sans);font-weight:700;font-size:1.04rem;color:#fff}
+  .svc p{color:var(--mute);font-size:.84rem;margin-top:3px}
+  .svc .price{font-family:var(--serif);color:var(--sky);font-size:1.5rem;white-space:nowrap}
+
+  .suc{background:var(--navy-2)}
+  .suc-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .sc{border:1px solid var(--line);border-radius:14px;padding:32px;background:rgba(255,255,255,.03)}
+  .sc h3{font-family:var(--sans);font-size:1.22rem;color:#fff;display:flex;align-items:center;gap:10px}
+  .st{font-size:.68rem;letter-spacing:.08em;padding:4px 11px;border-radius:20px;text-transform:uppercase;font-weight:700}
+  .st.open{background:rgba(91,155,213,.18);color:var(--sky)}.st.soon{background:rgba(217,183,121,.16);color:var(--gold)}
+  .sc p{color:var(--mute);margin-top:12px}.sc .wa{margin-top:18px;display:inline-flex;gap:8px;color:var(--sky);font-weight:600;font-size:.9rem}
+
+  .cita{background:linear-gradient(120deg,var(--royal),var(--sky));border-radius:22px;padding:58px;text-align:center;color:#fff}
+  .cita h2{color:#fff;font-size:clamp(1.9rem,4vw,2.7rem)}
+  .cita p{color:#eaf4ff;max-width:520px;margin:14px auto 28px}
+
+  footer{background:var(--navy-2);border-top:1px solid var(--line);padding:50px 0 28px}
+  .foot{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}.foot .logo b{color:#fff}
+  .foot-cols{display:flex;gap:56px;flex-wrap:wrap}.foot-col h4{color:var(--sky);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:13px}
+  .foot-col a{display:block;color:var(--mute);font-size:.9rem;margin-bottom:8px}.foot-col a:hover{color:#fff}
+  .foot-bottom{border-top:1px solid var(--line);margin-top:28px;padding-top:18px;text-align:center;color:var(--mute);font-size:.8rem}
+
+  .fab{position:fixed;right:22px;bottom:22px;z-index:60;width:56px;height:56px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 12px 26px -8px rgba(37,211,102,.7)}.fab svg{width:30px;height:30px;fill:#fff}
+  .reveal{opacity:0;transform:translateY(20px);transition:.7s}.reveal.in{opacity:1;transform:none}
+  @media(max-width:900px){.hero .wrap{grid-template-columns:1fr}.cat-grid{grid-template-columns:1fr 1fr}.suc-grid{grid-template-columns:1fr}}
+  @media(max-width:640px){nav.links,.nav-cta{display:none}.burger{display:flex}.cat-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top"><img src="assets/logo-pedregal.png" alt="Autolavado Pedregal"><div><b>PEDREGAL</b><span>LUXURY &amp; DETAILING</span></div></a>
+    <nav class="links"><a href="#membresia">Membresía</a><a href="#servicios">Servicios</a><a href="#sucursales">Sucursales</a><a href="#citas">Agenda</a></nav>
+    <a class="nav-cta" href="#membresia">Membresía $499</a>
+    <div class="burger" onclick="document.querySelector('nav.links').classList.toggle('show')"><span></span><span></span><span></span></div>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-l">
+      <span class="eyebrow">Membresía de apertura · Cupo limitado</span>
+      <h1>Lava tu auto<br><em>sin límites</em>.</h1>
+      <p>Una sola cuota al mes y tu auto siempre impecable. Cobro automático, prioridad en agenda y válida en ambas sucursales.</p>
+      <div class="row"><a class="btn btn-p" href="#membresia">Quiero mi membresía</a><a class="btn btn-g" href="#servicios">Ver servicios</a></div>
+      <div class="hero-note">✦ Beneficio limitado por apertura de nueva sucursal</div>
+    </div>
+    <div class="plan" id="membresia">
+      <div class="ribbon">APERTURA</div>
+      <div class="k">MEMBRESÍA · AUTOLAVADO PEDREGAL</div>
+      <div class="amt">$499<small>/mes</small></div>
+      <div class="sub">Lavados ilimitados durante todo el mes</div>
+      <ul><li>Lavados ilimitados al mes</li><li>Cobro domiciliado automático</li><li>Válida en ambas sucursales</li><li>Prioridad en la agenda de citas</li><li>Sin permanencia forzosa</li></ul>
+      <a class="btn btn-p" href="https://wa.me/524445084604" target="_blank">Contratar por WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<section id="servicios">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="eyebrow">Catálogo</span><h2>¿Prefieres pagar por servicio?</h2><p>También puedes elegir servicios individuales. Precios por sucursal.</p></div>
+    <div class="cat-grid">
+      <div class="svc reveal"><div><h3>Lavado Express</h3><p>Exterior y secado premium</p></div><div class="price">$120</div></div>
+      <div class="svc reveal"><div><h3>Lavado Completo</h3><p>Exterior e interior</p></div><div class="price">$220</div></div>
+      <div class="svc reveal"><div><h3>Detailing Luxury</h3><p>Encerado y pulido de detalle</p></div><div class="price">$450</div></div>
+      <div class="svc reveal"><div><h3>Interiores Premium</h3><p>Tapicería y desinfección</p></div><div class="price">$300</div></div>
+      <div class="svc reveal"><div><h3>Detailing de Motor</h3><p>Limpieza profunda</p></div><div class="price">$650</div></div>
+      <div class="svc reveal"><div><h3>Tratamiento Cerámico</h3><p>Protección de larga duración</p></div><div class="price">$900</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="suc" id="sucursales">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="eyebrow">Ubicaciones</span><h2>Tu membresía en dos sucursales</h2></div>
+    <div class="suc-grid">
+      <div class="sc reveal"><h3>Sucursal Principal <span class="st open">Abierta</span></h3><p>Servicio completo de lavado y detailing, todos los días.</p><a class="wa" href="https://wa.me/524445084604" target="_blank">WhatsApp de esta sucursal →</a></div>
+      <div class="sc reveal"><h3>Nueva Sucursal <span class="st soon">Próximamente</span></h3><p>La membresía de apertura aplica aquí. ¡Sé de los primeros!</p><a class="wa" href="https://wa.me/524445084604" target="_blank">Avísame de la apertura →</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="citas"><div class="wrap"><div class="cita reveal"><span class="eyebrow" style="color:#eaf4ff">Agenda en línea</span><h2>Reserva tu cita en segundos</h2><p>Elige sucursal, servicio y horario. Confirmamos por WhatsApp y tu pago queda domiciliado.</p><a class="btn" style="background:#fff;color:var(--navy)" href="https://wa.me/524445084604" target="_blank">Agendar ahora</a></div></div></section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <a class="logo" href="#top"><img src="assets/logo-pedregal.png" alt="Pedregal" style="height:56px"><div><b>PEDREGAL</b><span>LUXURY &amp; DETAILING</span></div></a>
+      <div class="foot-cols"><div class="foot-col"><h4>Explorar</h4><a href="#membresia">Membresía</a><a href="#servicios">Servicios</a><a href="#sucursales">Sucursales</a></div><div class="foot-col"><h4>Contacto</h4><a href="https://wa.me/524445084604">WhatsApp</a><a href="#">Instagram</a><a href="#">Facebook</a></div></div>
+    </div>
+    <div class="foot-bottom">© 2026 Autolavado Pedregal · Luxury &amp; Detailing — Sitio por BAA</div>
+  </div>
+</footer>
+<a class="fab" href="https://wa.me/524445084604" target="_blank" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1012 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.5-1.2-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.1.1.3 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.1.3.7 1.1 1.4 1.8.9.8 1.7 1 2 1.2.3.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.9.9c.2.1.4.2.4.3.1.1.1.6-.1 1.3z"/></svg></a>
+<script>const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>io.observe(el));</script>
+</body>
+</html>
