@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autolavado Pedregal · Agenda tu cita</title>
+<style>
+  :root{
+    --navy:#13284f; --navy-2:#0d1c39; --royal:#2a5aa8; --sky:#4f92da; --sky-soft:#eef4fb;
+    --ink:#17233d; --mute:#5f6f8c; --line:#e2e9f3; --white:#fff; --ok:#1c9d6a;
+    --serif:"Iowan Old Style",Palatino,"Book Antiqua",Georgia,serif;
+    --sans:"Segoe UI",Roboto,Arial,system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+  body{font-family:var(--sans);background:var(--white);color:var(--ink);line-height:1.6;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 26px}
+  h1,h2,h3{font-family:var(--serif);font-weight:700;line-height:1.1;letter-spacing:-.015em;color:var(--navy)}
+  .eyebrow{font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--royal);font-weight:700}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:600;padding:14px 28px;border-radius:10px;font-size:.96rem;transition:.2s;cursor:pointer;border:0}
+  .btn-p{background:var(--royal);color:#fff}.btn-p:hover{background:var(--navy);transform:translateY(-2px)}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+  .logo{display:flex;align-items:center;gap:12px}.logo img{height:46px}
+  .logo b{font-family:var(--serif);letter-spacing:.12em;color:var(--navy)}.logo span{display:block;font-size:.58rem;letter-spacing:.36em;color:var(--sky)}
+  nav.links{display:flex;gap:28px}nav.links a{font-size:.9rem;color:var(--mute);font-weight:500}nav.links a:hover{color:var(--navy)}
+  .nav-cta{background:var(--royal);color:#fff;padding:11px 22px;border-radius:10px;font-size:.86rem;font-weight:600}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer}.burger span{width:24px;height:2px;background:var(--navy)}
+
+  /* HERO with booking card */
+  .hero{background:linear-gradient(160deg,var(--sky-soft),#fff);padding:64px 0 80px}
+  .hero .wrap{display:grid;grid-template-columns:1fr .92fr;gap:48px;align-items:center}
+  .hero-l h1{font-size:clamp(2.6rem,5.6vw,4.2rem);margin:18px 0}
+  .hero-l h1 em{font-style:italic;color:var(--royal)}
+  .hero-l p{font-size:1.16rem;color:var(--mute);max-width:470px;margin-bottom:26px}
+  .hero-mini{display:flex;gap:26px;margin-top:26px;flex-wrap:wrap}
+  .hero-mini div{display:flex;align-items:center;gap:9px;font-size:.9rem;color:var(--navy);font-weight:600}
+  .hero-mini .dot{width:9px;height:9px;border-radius:50%;background:var(--ok)}
+
+  /* booking widget */
+  .booker{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 40px 80px -30px rgba(19,40,79,.35);overflow:hidden}
+  .booker .bhead{background:var(--navy);color:#fff;padding:20px 26px;display:flex;align-items:center;gap:12px}
+  .booker .bhead img{height:34px}
+  .booker .bhead b{font-family:var(--serif);letter-spacing:.06em}
+  .booker .bbody{padding:26px}
+  .field{margin-bottom:18px}
+  .field label{font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);font-weight:700;display:block;margin-bottom:8px}
+  .opts{display:flex;gap:8px;flex-wrap:wrap}
+  .opt{border:1.5px solid var(--line);border-radius:9px;padding:9px 14px;font-size:.88rem;cursor:pointer;transition:.15s;color:var(--navy);background:#fff}
+  .opt:hover{border-color:var(--sky)}
+  .opt.sel{background:var(--royal);border-color:var(--royal);color:#fff}
+  .slots{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+  .slot{border:1.5px solid var(--line);border-radius:9px;padding:9px 0;text-align:center;font-size:.86rem;cursor:pointer;transition:.15s;color:var(--navy)}
+  .slot:hover{border-color:var(--sky)}.slot.sel{background:var(--royal);border-color:var(--royal);color:#fff}
+  .booker .btn{width:100%;margin-top:6px}
+  .booker .note{font-size:.78rem;color:var(--mute);text-align:center;margin-top:12px}
+
+  section{padding:92px 0}
+  .sec-head{max-width:600px;margin-bottom:52px}
+  .sec-head h2{font-size:clamp(2rem,4vw,2.8rem);margin-top:12px}.sec-head p{color:var(--mute);margin-top:12px}
+
+  .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .svc{border:1px solid var(--line);border-radius:14px;padding:26px;transition:.22s;background:#fff}
+  .svc:hover{border-color:var(--royal);box-shadow:0 18px 40px -22px rgba(19,40,79,.3);transform:translateY(-4px)}
+  .svc h3{font-family:var(--sans);font-weight:700;font-size:1.06rem}
+  .svc p{color:var(--mute);font-size:.88rem;margin-top:5px}
+  .svc .price{margin-top:14px;font-family:var(--serif);color:var(--royal);font-size:1.45rem}
+
+  .memb{background:var(--navy);color:#fff}
+  .memb .wrap{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+  .memb h2{color:#fff;font-size:clamp(2rem,4vw,2.9rem)}
+  .memb p{color:#bcd0ec;margin:14px 0 24px}
+  .memb .btn{background:#fff;color:var(--navy)}
+  .memb-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);border-radius:18px;padding:36px}
+  .memb-card .amt{font-family:var(--serif);font-size:3.4rem;color:#fff}.memb-card .amt small{font-size:1rem;color:#bcd0ec}
+  .memb-card ul{list-style:none;margin-top:16px;display:flex;flex-direction:column;gap:11px}
+  .memb-card li{display:flex;gap:10px;color:#dce8f6;font-size:.94rem}.memb-card li::before{content:"✓";color:var(--sky)}
+
+  .suc-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .sc{border:1px solid var(--line);border-radius:14px;padding:32px}
+  .sc h3{font-family:var(--sans);font-size:1.22rem;display:flex;align-items:center;gap:10px}
+  .st{font-size:.68rem;letter-spacing:.08em;padding:4px 11px;border-radius:20px;text-transform:uppercase;font-weight:700}
+  .st.open{background:#e2f4ea;color:var(--ok)}.st.soon{background:#eef2f7;color:var(--mute)}
+  .sc p{color:var(--mute);margin-top:12px}.sc .wa{margin-top:16px;display:inline-flex;gap:8px;color:var(--royal);font-weight:600;font-size:.9rem}
+
+  footer{background:var(--navy-2);color:#bcd0ec;padding:50px 0 28px}
+  .foot{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}.foot .logo b{color:#fff}
+  .foot-cols{display:flex;gap:56px;flex-wrap:wrap}.foot-col h4{color:#fff;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:13px}
+  .foot-col a{display:block;font-size:.9rem;margin-bottom:8px}.foot-col a:hover{color:#fff}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.12);margin-top:26px;padding-top:18px;text-align:center;font-size:.8rem}
+
+  .fab{position:fixed;right:22px;bottom:22px;z-index:60;width:56px;height:56px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 12px 26px -8px rgba(37,211,102,.7)}.fab svg{width:30px;height:30px;fill:#fff}
+  .reveal{opacity:0;transform:translateY(20px);transition:.7s}.reveal.in{opacity:1;transform:none}
+  @media(max-width:900px){.hero .wrap,.memb .wrap{grid-template-columns:1fr}.cat-grid{grid-template-columns:1fr 1fr}.suc-grid{grid-template-columns:1fr}}
+  @media(max-width:640px){nav.links,.nav-cta{display:none}.burger{display:flex}.cat-grid{grid-template-columns:1fr}.slots{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top"><img src="assets/logo-pedregal.png" alt="Autolavado Pedregal"><div><b>PEDREGAL</b><span>LUXURY &amp; DETAILING</span></div></a>
+    <nav class="links"><a href="#agenda">Agendar</a><a href="#servicios">Servicios</a><a href="#membresia">Membresía</a><a href="#sucursales">Sucursales</a></nav>
+    <a class="nav-cta" href="#agenda">Agendar cita</a>
+    <div class="burger" onclick="document.querySelector('nav.links').classList.toggle('show')"><span></span><span></span><span></span></div>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-l">
+      <span class="eyebrow">Agenda en línea · 2 sucursales</span>
+      <h1>Aparta tu lavado<br>en <em>30 segundos</em>.</h1>
+      <p>Elige sucursal, servicio y horario disponible. Sin llamadas ni filas — te confirmamos por WhatsApp.</p>
+      <a class="btn btn-p" href="#agenda">Empezar a agendar</a>
+      <div class="hero-mini"><div><span class="dot"></span>Disponible hoy</div><div><span class="dot"></span>Pago domiciliado</div><div><span class="dot"></span>Detailing a mano</div></div>
+    </div>
+    <div class="booker" id="agenda">
+      <div class="bhead"><img src="assets/logo-pedregal.png" alt=""><b>Reserva tu cita</b></div>
+      <div class="bbody">
+        <div class="field"><label>Sucursal</label><div class="opts"><span class="opt sel">Principal</span><span class="opt">Nueva (próx.)</span></div></div>
+        <div class="field"><label>Servicio</label><div class="opts"><span class="opt sel">Express $120</span><span class="opt">Completo $220</span><span class="opt">Detailing $450</span></div></div>
+        <div class="field"><label>Horario disponible</label><div class="slots"><span class="slot">9:00</span><span class="slot sel">10:30</span><span class="slot">12:00</span><span class="slot">13:30</span><span class="slot">15:00</span><span class="slot">16:30</span><span class="slot">18:00</span><span class="slot">19:30</span></div></div>
+        <a class="btn btn-p" href="https://wa.me/524445084604" target="_blank">Confirmar por WhatsApp</a>
+        <div class="note">Vista de ejemplo — la agenda real se conecta a su sistema de citas.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="servicios">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="eyebrow">Catálogo</span><h2>Elige tu servicio</h2><p>Precios por sucursal. Del lavado rápido al detailing de exhibición.</p></div>
+    <div class="cat-grid">
+      <div class="svc reveal"><h3>Lavado Express</h3><p>Exterior y secado premium</p><div class="price">$120</div></div>
+      <div class="svc reveal"><h3>Lavado Completo</h3><p>Exterior, interior y aroma</p><div class="price">$220</div></div>
+      <div class="svc reveal"><h3>Detailing Luxury</h3><p>Encerado y pulido de detalle</p><div class="price">$450</div></div>
+      <div class="svc reveal"><h3>Interiores Premium</h3><p>Tapicería y desinfección</p><div class="price">$300</div></div>
+      <div class="svc reveal"><h3>Detailing de Motor</h3><p>Limpieza profunda</p><div class="price">$650</div></div>
+      <div class="svc reveal"><h3>Tratamiento Cerámico</h3><p>Protección de larga duración</p><div class="price">$900</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="memb" id="membresia">
+  <div class="wrap">
+    <div class="reveal"><span class="eyebrow" style="color:var(--sky)">Membresía de apertura</span><h2>¿Lavas seguido? Hazte miembro.</h2><p>Lavados ilimitados al mes por una sola cuota con cobro automático. Cupo limitado por apertura de nueva sucursal.</p><a class="btn" href="https://wa.me/524445084604" target="_blank">Quiero mi membresía</a></div>
+    <div class="memb-card reveal"><div style="font-size:.7rem;letter-spacing:.28em;color:var(--sky)">MEMBRESÍA · $499/MES</div><div class="amt">$499<small>/mes</small></div><ul><li>Lavados ilimitados al mes</li><li>Cobro domiciliado automático</li><li>Válida en ambas sucursales</li><li>Prioridad en agenda</li></ul></div>
+  </div>
+</section>
+
+<section id="sucursales">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="eyebrow">Ubicaciones</span><h2>Dos sucursales para ti</h2></div>
+    <div class="suc-grid">
+      <div class="sc reveal"><h3>Sucursal Principal <span class="st open">Abierta</span></h3><p>Servicio completo de lavado y detailing, todos los días.</p><a class="wa" href="https://wa.me/524445084604" target="_blank">WhatsApp de esta sucursal →</a></div>
+      <div class="sc reveal"><h3>Nueva Sucursal <span class="st soon">Próximamente</span></h3><p>Nueva ubicación con membresía de apertura y beneficios exclusivos.</p><a class="wa" href="https://wa.me/524445084604" target="_blank">Avísame de la apertura →</a></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <a class="logo" href="#top"><img src="assets/logo-pedregal.png" alt="Pedregal" style="height:56px"><div><b>PEDREGAL</b><span>LUXURY &amp; DETAILING</span></div></a>
+      <div class="foot-cols"><div class="foot-col"><h4>Explorar</h4><a href="#agenda">Agendar</a><a href="#servicios">Servicios</a><a href="#membresia">Membresía</a></div><div class="foot-col"><h4>Contacto</h4><a href="https://wa.me/524445084604">WhatsApp</a><a href="#">Instagram</a><a href="#">Facebook</a></div></div>
+    </div>
+    <div class="foot-bottom">© 2026 Autolavado Pedregal · Luxury &amp; Detailing — Sitio por BAA</div>
+  </div>
+</footer>
+<a class="fab" href="https://wa.me/524445084604" target="_blank" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1012 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.5-1.2-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.1.1.3 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.1.3.7 1.1 1.4 1.8.9.8 1.7 1 2 1.2.3.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.9.9c.2.1.4.2.4.3.1.1.1.6-.1 1.3z"/></svg></a>
+<script>
+  const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  document.querySelectorAll('.opts').forEach(g=>g.addEventListener('click',e=>{if(e.target.classList.contains('opt')){g.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));e.target.classList.add('sel')}}));
+  const slots=document.querySelector('.slots');if(slots)slots.addEventListener('click',e=>{if(e.target.classList.contains('slot')){slots.querySelectorAll('.slot').forEach(o=>o.classList.remove('sel'));e.target.classList.add('sel')}});
+</script>
+</body>
+</html>
